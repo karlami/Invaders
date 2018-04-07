@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 
 import EstructurasDatos.ListaSimple;
+import GameScreen.GameScreen;
 
 public class StateMachine {
 
@@ -14,10 +15,10 @@ public class StateMachine {
 	private byte selectState = 0;
 	
 	public StateMachine(Canvas canvas){
-		//SuperStateMachine game = new GameScreen(this);
+		SuperStateMachine game = new GameScreen();
 		//SuperStateMachine menu = new MenuScreen(this);
 		//states.add(menu);
-		//states.add(game);
+		states.add(game);
 		
 		this.canvas = canvas;
 	}
