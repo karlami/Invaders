@@ -17,7 +17,12 @@ public class Main extends Canvas implements Runnable{
         frame.setVisible(true);
         
     }
+    public static int WIDTH = 800;
+    public static int HEIGHT = 600;
+    
     public Main(){
+        this.setSize(WIDTH, HEIGHT);
+        this.setFocusable(true);
         
     }
 
