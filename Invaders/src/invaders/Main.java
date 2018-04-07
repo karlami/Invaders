@@ -1,6 +1,7 @@
 
 package invaders;
 
+import State.StateMachine;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -45,9 +46,14 @@ public class Main extends Canvas implements Runnable{
     public static int HEIGHT = 600;
     public int FPS;
     
+    public static StateMachine state;
+    
     public Main(){
         this.setSize(WIDTH, HEIGHT);
         this.setFocusable(true);
+        
+        state = new StateMachine(this);
+        state.setState((byte)0);
         
     }
 
@@ -97,7 +103,7 @@ public class Main extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
 				
-		//state.draw(g);
+		state.draw(g);
 
 		g.dispose();
             } while (bs.contentsRestored());
@@ -105,7 +111,7 @@ public class Main extends Canvas implements Runnable{
 	} while (bs.contentsLost());
 	}
     public void update(double delta) {
-		
+		state.update(delta);
 	}
 
 }
