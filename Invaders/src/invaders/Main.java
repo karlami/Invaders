@@ -40,6 +40,7 @@ public class Main extends Canvas implements Runnable{
     
     public static int WIDTH = 800;
     public static int HEIGHT = 600;
+    public int FPS;
     
     public Main(){
         this.setSize(WIDTH, HEIGHT);
@@ -49,7 +50,33 @@ public class Main extends Canvas implements Runnable{
 
     @Override
     public void run() {
+        long timer = System.currentTimeMillis();
+        long lastLoopTime = System.nanoTime();
+        final int targetFPS = 60;
+        final long optimalTime = 1000000000 / targetFPS;
+        int frames = 0;
+        
         while(running){
+            long now = System.nanoTime();
+            long updateLenght = now - lastLoopTime;
+            lastLoopTime = now;
+            double delta = updateLenght / ((double)optimalTime);
+            
+            frames ++;
+            
+            if(System.currentTimeMillis()-timer > 1000){
+                timer += 1000;
+                FPS = frames;
+                frames = 0;
+            }
+            try{
+                Thread.sleep(((lastLoopTime - System.nanoTime()) + optimalTime)/1000000);
+            }catch(Exception e){
+                
+            }
+        
+        
+        
             System.out.println("Running");
         }
     }
