@@ -2,6 +2,9 @@
 package invaders;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 public class Main extends Canvas implements Runnable{
@@ -56,6 +59,9 @@ public class Main extends Canvas implements Runnable{
         final long optimalTime = 1000000000 / targetFPS;
         int frames = 0;
         
+        this.createBufferStrategy(3);
+        BufferStrategy bs = this.getBufferStrategy();
+        
         while(running){
             long now = System.nanoTime();
             long updateLenght = now - lastLoopTime;
@@ -68,17 +74,40 @@ public class Main extends Canvas implements Runnable{
                 timer += 1000;
                 FPS = frames;
                 frames = 0;
+                System.out.println(FPS);
             }
+            draw(bs);
+            update(delta);
             try{
                 Thread.sleep(((lastLoopTime - System.nanoTime()) + optimalTime)/1000000);
             }catch(Exception e){
                 
             }
-        
-        
-        
-            System.out.println("Running");
         }
     }
-    
+    /**
+     * Evita el parpadeo de los objetos a dibujar,
+     * mostrando cada vez la situacion actual que fue dibujado
+     * @param bs usado para un BufferedImage
+     */
+    public void draw(BufferStrategy bs) {
+        do {
+            do {
+		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
+				
+		//state.draw(g);
+
+		g.dispose();
+            } while (bs.contentsRestored());
+		bs.show();
+	} while (bs.contentsLost());
+	}
+    public void update(double delta) {
+		
+	}
+
 }
+    
+
