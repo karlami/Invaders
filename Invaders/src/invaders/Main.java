@@ -15,8 +15,29 @@ public class Main extends Canvas implements Runnable{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
+        display.start();
         
     }
+    private boolean running = false;
+    private Thread thread;
+    //para sychronized para compartir los recursos cada vez que thread
+    public synchronized void start(){
+        if(running){
+            return;
+        }
+        running = true;
+        thread = new Thread(this);
+        thread.start();    
+    }
+    
+    public synchronized void stop() throws InterruptedException{
+        if(!running){
+            return;
+        }
+        running = false;
+        thread.join(); 
+    }
+    
     public static int WIDTH = 800;
     public static int HEIGHT = 600;
     
@@ -28,7 +49,9 @@ public class Main extends Canvas implements Runnable{
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        while(running){
+            System.out.println("Running");
+        }
     }
     
 }
