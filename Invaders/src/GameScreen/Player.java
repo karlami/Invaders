@@ -48,7 +48,11 @@ public class Player implements KeyListener{
 		g.drawImage(pSprite,(int) xPos,(int) yPos, width, height, null);
 		//playerWeapons.draw(g);
 	}
-	
+	/**
+         * Movimiento de la nave, Main.WIDTH-width para que no se pase del 
+         * lado derecho de la Game Screen
+         * @param delta para ajustar a la velocidad fps adecuada
+         */
 	public void update(double delta){
 		if(right && !left && xPos < Main.WIDTH-width){
 			xPos += speed * delta;
