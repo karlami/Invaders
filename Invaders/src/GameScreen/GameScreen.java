@@ -10,7 +10,7 @@ public class GameScreen implements SuperStateMachine{
     private Player player;
     
     public GameScreen(){
-        player = new Player(150,150,50,40);
+        player = new Player(375,550,50,40);
     }
 
     @Override
