@@ -100,7 +100,7 @@ public class Main extends Canvas implements Runnable{
         do {
             do {
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		g.setColor(Color.BLACK);
+		g.setColor(Color.darkGray);
 		g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
 				
 		state.draw(g);
