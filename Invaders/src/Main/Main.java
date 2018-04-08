@@ -1,5 +1,5 @@
 
-package invaders;
+package Main;
 
 import State.StateMachine;
 import java.awt.Canvas;
