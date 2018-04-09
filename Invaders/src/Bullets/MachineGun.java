@@ -19,7 +19,10 @@ public class MachineGun extends PlayerWeaponType{
 		
 		this.bullet = new Rectangle((int) getxPos(),(int) getyPos(), getWidth(), getHeight());
 	}
-	
+	/**
+         * Dibuja la bala que es un rectangulo de color anaranjado
+         * @param g para el objeto tipo Graphics2D a dibujar
+         */
 	@Override
 	public void draw(Graphics2D g) {
             if(bullet == null)
@@ -65,6 +68,10 @@ public class MachineGun extends PlayerWeaponType{
 
             return false;
 	}
+        
+        /**
+         * Cuando una bala sale de la pantalla, se vuelve nula porque ya no es funcional
+         */
 
 	@Override
 	protected void isOutofBounds() {
