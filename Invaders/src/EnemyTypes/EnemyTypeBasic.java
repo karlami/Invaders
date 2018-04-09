@@ -20,17 +20,13 @@ public class EnemyTypeBasic implements EnemyType{
     private Rectangle rect;
     private SpriteAnimation enemySprite;
     
-    public EnemyTypeBasic(double xPos, double yPos, int width, int height, String imgPath){
-        enemySprite = new SpriteAnimation(xPos, yPos, width, height, 300);
+    public EnemyTypeBasic(double xPos, double yPos, int rows, int columns){
+        enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 300, "/images/enemy2.png");
+        enemySprite.setWidth(35);
+        enemySprite.setHeight(35);
         
-        try{
-                URL url = this.getClass().getResource(imgPath);
-                BufferedImage pSprite = ImageIO.read(url);
-                for(int i = 0; i < 2; i++){
-                    enemySprite.addSprite(pSprite, 0 + (i * 85), 0 , 102, 86);
-                }
-            }catch(IOException e){};
-        this.setRect(new Rectangle((int)enemySprite.getPosX(), (int)enemySprite.getPosY(), width, height));   
+
+        this.setRect(new Rectangle((int)enemySprite.getPosX(), (int)enemySprite.getPosY(), enemySprite.getWidth(), enemySprite.getHeight()));   
         enemySprite.setLoop(true);
     }
 
