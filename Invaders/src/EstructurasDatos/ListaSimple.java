@@ -99,7 +99,6 @@ public class ListaSimple <T> { private NodeLista<T> head;
       System.out.println("El elemento no se encuentra en la lista");
       return null;
     }
-    System.out.println(aux.getData());
     return aux.getData();
   }
   /**
