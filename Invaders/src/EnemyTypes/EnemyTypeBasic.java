@@ -21,10 +21,10 @@ public class EnemyTypeBasic implements EnemyType{
     private SpriteAnimation enemySprite;
     
     public EnemyTypeBasic(double xPos, double yPos, int rows, int columns){
-        enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 300, "/images/enemy2.png");
+        enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 500, "/images/en1.png");
         enemySprite.setWidth(35);
-        enemySprite.setHeight(35);
-        
+        enemySprite.setHeight(40);
+        enemySprite.setLimit(2);
 
         this.setRect(new Rectangle((int)enemySprite.getPosX(), (int)enemySprite.getPosY(), enemySprite.getWidth(), enemySprite.getHeight()));   
         enemySprite.setLoop(true);
@@ -45,22 +45,48 @@ public class EnemyTypeBasic implements EnemyType{
 
     @Override
     public void changeDirection(double delta) {
-        speed *= -1.05d;
+        speed *= -1.15d;
         enemySprite.setPosX(enemySprite.getPosX() - (delta * speed));
         this.getRect().x = (int) enemySprite.getPosX();
         
         enemySprite.setPosY(enemySprite.getPosY() + (delta * 20));
         this.getRect().y = (int) enemySprite.getPosY();
     }
+    /**
+     * Para saber cuando se debe eliminar un enemigo
+     * @return false si el enemigo esta en pantalla o true si esta destruido
+     */
 
     @Override
     public boolean deathScene() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!enemySprite.isPlay()){
+            return false;
+        }
+        if(enemySprite.isSpriteAnimDestroyed()){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean collide(int i, Player player, ListaSimple<EnemyType> enemys) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(enemySprite.isPlay()){
+           if(enemys.get(i).deathScene()){
+               enemys.print();
+               enemys.remove(i);
+           }
+           return false;
+       }
+        
+        for(int w = 0; w < player.playerWeapons.weapons.getSize(); w++){
+            if(enemys != null && player.playerWeapons.weapons.get(w).collisionRect(((EnemyTypeBasic) enemys.get(i)).getRect())){
+                enemySprite.resetLimit();
+                enemySprite.setAnimationSpeed(100);
+                enemySprite.setPlay(true, true);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
