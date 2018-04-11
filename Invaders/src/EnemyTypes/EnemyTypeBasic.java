@@ -2,16 +2,12 @@
 package EnemyTypes;
 
 import EstructurasDatos.ListaSimple;
+import GameScreen.GameScreen;
 import GameScreen.Player;
-import GameScreen.PlayerWeapon;
 import Main.Main;
 import Sprite.SpriteAnimation;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 
 public class EnemyTypeBasic implements EnemyType{
     
@@ -72,7 +68,7 @@ public class EnemyTypeBasic implements EnemyType{
     public boolean collide(int i, Player player, ListaSimple<EnemyType> enemys) {
        if(enemySprite.isPlay()){
            if(enemys.get(i).deathScene()){
-               enemys.print();
+               
                enemys.remove(i);
            }
            return false;
@@ -83,6 +79,7 @@ public class EnemyTypeBasic implements EnemyType{
                 enemySprite.resetLimit();
                 enemySprite.setAnimationSpeed(100);
                 enemySprite.setPlay(true, true);
+                GameScreen.score += 5;
                 return true;
             }
         }
