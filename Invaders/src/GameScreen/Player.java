@@ -21,13 +21,13 @@ public class Player implements KeyListener{
 	private double xPos, yPos, startXPos, startYPos;
 	private int width, height;
 	
-	//private static Player player;
+	private static Player player;
 	private boolean left = false, right = false, shoot = false;
 	
 	public PlayerWeapon playerWeapons;
         
-	//Singleton
-	public Player(double xPos, double yPos, int width, int height){
+	//Singleton, constructor private
+	private Player(double xPos, double yPos, int width, int height){
             this.xPos = xPos;
             this.yPos = yPos;
             this.startXPos = xPos;
@@ -39,12 +39,12 @@ public class Player implements KeyListener{
             rect = new Rectangle((int) xPos,(int) yPos+25, width, height-25);
 
             try{
-                    URL url = this.getClass().getResource("/images/player.png");
-                    pSprite = ImageIO.read(url);
+                URL url = this.getClass().getResource("/images/player.png");
+                pSprite = ImageIO.read(url);
             }catch(IOException e){};
             playerWeapons = new PlayerWeapon();
 	}
-        /**
+        
         public static Player getPlayer(double xPos, double yPos, int width, int height){
             if(player == null){
                 player = new Player(xPos, yPos, width, height);
@@ -52,7 +52,7 @@ public class Player implements KeyListener{
                 System.out.println("No se puede crear otra nave porque ya existe una nave de la clase Player");
             }
             return player;
-        }*/
+        }
 	
 	public void draw(Graphics2D g){
 		g.drawImage(pSprite,(int) xPos,(int) yPos, width, height, null);
