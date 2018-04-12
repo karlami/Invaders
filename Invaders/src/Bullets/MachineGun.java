@@ -78,7 +78,7 @@ public class MachineGun extends PlayerWeaponType{
             if(this.bullet == null)
                 return;
 
-            if(bullet.y < 0 || bullet.y > Main.HEIGHT || bullet.x < 0 || bullet.x > Main.WIDTH){
+            if(bullet.y < 0 || bullet.y > Main.getHEIGHT() || bullet.x < 0 || bullet.x > Main.getWIDTH()){
                 bullet = null;
             }
 	}

@@ -42,8 +42,8 @@ public class Main extends Canvas implements Runnable{
         thread.join(); 
     }
     
-    public static int WIDTH = 800;
-    public static int HEIGHT = 600;
+    private static int WIDTH = 800;
+    private static int HEIGHT = 600;
     public int FPS;
     
     public static StateMachine state;
@@ -72,6 +72,7 @@ public class Main extends Canvas implements Runnable{
             long now = System.nanoTime();
             long updateLenght = now - lastLoopTime;
             lastLoopTime = now;
+            //
             double delta = updateLenght / ((double)optimalTime);
             
             frames ++;
@@ -80,7 +81,7 @@ public class Main extends Canvas implements Runnable{
                 timer += 1000;
                 FPS = frames;
                 frames = 0;
-                System.out.println(FPS);
+                //System.out.println(FPS);
             }
             draw(bs);
             update(delta);
@@ -99,20 +100,30 @@ public class Main extends Canvas implements Runnable{
     public void draw(BufferStrategy bs) {
         do {
             do {
-		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		g.setColor(Color.darkGray);
-		g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
-				
-		state.draw(g);
+                Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+                g.setColor(Color.darkGray);
+                g.fillRect(0, 0, WIDTH + 50, HEIGHT + 50);
 
-		g.dispose();
+                state.draw(g);
+
+                g.dispose();
             } while (bs.contentsRestored());
 		bs.show();
 	} while (bs.contentsLost());
 	}
     public void update(double delta) {
-		state.update(delta);
+            state.update(delta);
 	}
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    
 
 }
     
