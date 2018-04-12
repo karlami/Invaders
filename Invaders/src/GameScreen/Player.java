@@ -64,7 +64,7 @@ public class Player implements KeyListener{
          * @param delta para ajustar a la velocidad fps adecuada
          */
 	public void update(double delta){
-		if(right && !left && xPos < Main.WIDTH-width){
+		if(right && !left && xPos < Main.getWIDTH()-width){
 			xPos += speed * delta;
 			rect.x = (int) xPos;
 		}if(!right && left && xPos > 10){
