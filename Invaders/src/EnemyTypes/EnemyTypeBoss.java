@@ -9,7 +9,7 @@ import Sprite.SpriteAnimation;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class EnemyTypeBasic implements EnemyType{
+public class EnemyTypeBoss implements EnemyType{
     
     private double speed = 2.0d;
     
@@ -18,9 +18,10 @@ public class EnemyTypeBasic implements EnemyType{
     
     private int vida;
     
-    public EnemyTypeBasic(double xPos, double yPos, int rows, int columns, int vida){
+    public EnemyTypeBoss(double xPos, double yPos, int rows, int columns, int vida){
         this.vida = vida;
-        enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 500, "/images/en1.png");
+        
+        enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 500, "/images/boss.png");
         enemySprite.setWidth(35);
         enemySprite.setHeight(40);
         enemySprite.setLimit(2);
@@ -78,13 +79,13 @@ public class EnemyTypeBasic implements EnemyType{
        }
         
         for(int w = 0; w < player.playerWeapons.weapons.getSize(); w++){
-            if(enemys != null && player.playerWeapons.weapons.get(w).collisionRect(((EnemyTypeBasic) enemys.get(i)).getRect())){
+            if(enemys != null && player.playerWeapons.weapons.get(w).collisionRect(((EnemyTypeBoss) enemys.get(i)).getRect())){
                 this.vida--;
             }if(vida == 0){
                 enemySprite.resetLimit();
                 enemySprite.setAnimationSpeed(100);
                 enemySprite.setPlay(true, true);
-                GameScreen.score += 5;
+                GameScreen.score += 10;
                 return true;
             }
         }
@@ -112,14 +113,6 @@ public class EnemyTypeBasic implements EnemyType{
 
     public void setEnemySprite(SpriteAnimation enemySprite) {
         this.enemySprite = enemySprite;
-    }
-
-    public int getVida() {
-        return vida;
-    }
-
-    public void setVida(int vida) {
-        this.vida = vida;
     }
     
 }
