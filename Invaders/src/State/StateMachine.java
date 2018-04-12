@@ -15,10 +15,10 @@ public class StateMachine {
 	private byte selectState = 0;
 	
 	public StateMachine(Canvas canvas){
-		SuperStateMachine game = new GameScreen();
-		//SuperStateMachine menu = new MenuScreen(this);
-		//states.add(menu);
-		states.add(game);
+            SuperStateMachine game = new GameScreen(this);
+            //SuperStateMachine menu = new MenuScreen(this);
+            //states.add(menu);
+	states.add(game);
 		
 		this.canvas = canvas;
 	}
