@@ -4,6 +4,7 @@ package Levels;
 
 import EnemyTypes.EnemyType;
 import EnemyTypes.EnemyTypeBasic;
+import EnemyTypes.EnemyTypeClaseA;
 import EstructurasDatos.ListaSimple;
 import GameScreen.Player;
 import java.awt.Graphics2D;
@@ -15,13 +16,7 @@ public class Level1 implements SuperLevel{
 	
 	public Level1(Player player){
             this.player = player;
-            for(int y = 0; y < 1; y++){
-                for(int x = 0; x< 5; x++ ){
-                    EnemyType enem = new EnemyTypeBasic(200 +(x * 40), 75 + (y * 40), 1, 3);
-                    enemies.add(enem);
-                }
-            }
-		
+            addEnemies();
 	}
 	
 	@Override
@@ -83,18 +78,24 @@ public class Level1 implements SuperLevel{
 	public void reset() {
             player.reset();
             enemies.clear();
-            //addEnemies();
+            addEnemies();
 		
 	}
-	/**
+	
 	public void addEnemies() {
+            int variable = (int)(Math.random()*10);
             for(int y = 0; y < 2; y++){
                 for(int x = 0; x < 2; x++){
+                    if(variable % 2 == 0){
+                       EnemyTypeClaseA e = new EnemyTypeClaseA(150 + (x * 40), 25 + (y * 40), 1, 3);
+                    enemies.add(e); 
+                    }
+                    if(variable % 2 != 0){
                     EnemyTypeBasic e = new EnemyTypeBasic(150 + (x * 40), 25 + (y * 40), 1, 3);
-                    enemies.add(e);
+                    enemies.add(e);}
                 }
             }
-	}*/
+	}
 
 	@Override
 	public boolean isComplete() {
