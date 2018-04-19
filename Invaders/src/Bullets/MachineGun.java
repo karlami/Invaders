@@ -5,7 +5,9 @@ import Main.Main;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
+/**
+ * Bala de la nave del jugador, en este caso solo hay un tipo de municion
+ */
 public class MachineGun extends PlayerWeaponType{
  
 	private Rectangle bullet;
@@ -31,7 +33,10 @@ public class MachineGun extends PlayerWeaponType{
             g.setColor(Color.ORANGE);
             g.fill(bullet);
 	}
-
+        /**
+         * Actualiza las posiciones en "y", basicamente el movimiento
+         * @param delta 
+         */
 	@Override
 	public void update(double delta) {
             if(bullet == null)
@@ -60,7 +65,10 @@ public class MachineGun extends PlayerWeaponType{
 
             return false;
 	}
-
+        /**
+         * Para dar a conocer si la bala debe desaparecer
+         * @return true o false si bala desaparece
+         */
 	@Override
 	public boolean destroy() {
             if(bullet == null)

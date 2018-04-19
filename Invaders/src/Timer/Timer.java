@@ -1,6 +1,9 @@
 
 package Timer;
-
+/**
+ * Toma la hora actual que registra la computadora para las animaciones
+ * @author HP_15
+ */
 public class Timer {
     private long prevTime;
     

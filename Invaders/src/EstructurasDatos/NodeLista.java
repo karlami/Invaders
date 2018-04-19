@@ -5,7 +5,11 @@ public class NodeLista <T> {
   private NodeLista<T> next;
   private T data;
   private NodeLista<T> prev;
-  
+/**
+ * Elemento basico para las listas, contiene el dato y referencia al siguiente y anterior
+ * segun lista lo requiera
+ * @param dato que contiene el objeto a guardar en la lista
+ */ 
   public NodeLista(T dato) {
     data = dato;
     next = null;

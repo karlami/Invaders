@@ -1,6 +1,9 @@
 
 package EstructurasDatos;
-
+/**
+ * Estructura de datos, lista simple enlazada
+ * @param <T> para generics
+ */
 public class ListaSimple <T> { private NodeLista<T> head;
   private int capacidad;
   
@@ -30,7 +33,7 @@ public class ListaSimple <T> { private NodeLista<T> head;
     }
   }
   /**
-   * Elimina el nodo de una lista
+   * Elimina el nodo de una lista por posicion
    * @param posicion para indicar el nodo que se quiere eliminar
    */
   public void remove(int posicion)
@@ -62,29 +65,9 @@ public class ListaSimple <T> { private NodeLista<T> head;
    * Elimina el nodo de una lista que corresponda al dato
    * @param dato para indicar el dato que se quiere eliminar de la lista
    */
-  public void delete(T dato) {
-    int pos_aux = 0;
-    NodeLista<T> current = head;
-    if (current.getData() == dato) {
-      remove(pos_aux);
-    } else {
-      current = current.getNext();
-      pos_aux++;
-      int x = 0;
-      while ((current != null) && (current.getData() != dato) && (capacidad >= x)) {
-        current = current.getNext();
-        pos_aux++;
-        x++;
-      }
-      if (current == null) {
-        System.out.println("El elemento no se encuentra en la lista");
-      } else {
-        remove(pos_aux);
-      }
-    }
-  }
+
   /**
-   * Devuelve el nodo en la posicion de la lista a elegir
+   * Devuelve el dato del en la posicion de la lista a elegir
    * @param i para indicar la posicion de la lista a devolver el dato del nodo
    * @return el valor del nodo en la posicion indicada
    */
@@ -102,8 +85,8 @@ public class ListaSimple <T> { private NodeLista<T> head;
     return aux.getData();
   }
   /**
-   * Busca el nodo que contenga el dato del buscado
-   * @param i que contiene el valor del nodo a buscar
+   * Obtiene el nodo segun la referencia
+   * @param i indice de busqueda
    * @return el nodo que coincide con el requerido
    */
   public NodeLista<T> getNode(int i)
@@ -130,29 +113,25 @@ public class ListaSimple <T> { private NodeLista<T> head;
   public void setHead(NodeLista<T> head) {
     this.head = head;
   }
-  
+    /**
+    * Vacia la lista
+    */   
   public void clear() {
     head = null;
     capacidad = 0;
   }
-  
+    /**
+    * Da el tamaño de la lista
+    * @return tamaño
+    */   
   public int getSize()
   {
     return capacidad;
   }
-  /**
-   * Busca en la lista el nodo que corresponda al dato ingresado
-   * @param dato para indicar el dato del nodo a buscar
-   * @return dato que se requiere
-   */
-  public T find(T dato) {
-    NodeLista<T> aux = head;
-    while (dato != aux.getData()) {
-      aux = aux.getNext();
-    }
-    return aux.getData();
-  }
-  
+    /**
+     * Verifica si la lista esta vacia
+     * @return true o false si esta vacia
+     */
   public boolean isEmpty()
   {
     if (capacidad == 0) {
@@ -160,44 +139,7 @@ public class ListaSimple <T> { private NodeLista<T> head;
     }
     return false;
   }
-  /**
-   * Imprime en pantalla la lista con los nodos entre []
-   */
-  public void print()
-  {
-    String fin = "[";
-    NodeLista<T> aux = head;
-    if (aux == null) {
-      fin = fin + "]";
-      
-    }
-    while (aux.getNext() != null) {
-      if (aux.getNext() == null) {
-        fin = fin + aux.getData().toString();
-        aux = aux.getNext();
-      } else {
-        fin = fin + aux.getData().toString() + ",";
-        aux = aux.getNext();
-      }
-    }
-    fin = fin + aux.getData().toString() + "]";
-    System.out.println(fin) ;
-  }
-  
 
-/**
- * Cambia las posiciones de los nodos requeridos
- * @param pos1 indica la posicion del primer nodo a intercambiar con el segundo
- * @param pos2 indica la posicion del segundo nodo a intercambiar con el primero
- */
-  public void swap(int pos1, int pos2)
-  {
-    T i = get(pos1);
-    T j = get(pos2);
-    getNode(pos1).setData(j);
-    getNode(pos2).setData(i);
-  }
-  
   public void setDATA(T data, int pos)
   {
     getNode(pos).setData(data);

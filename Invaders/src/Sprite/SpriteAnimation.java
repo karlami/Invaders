@@ -52,13 +52,19 @@ public class SpriteAnimation {
         // pues el tamaño no incluye al cero indice
         limit = sprites.getSize() - 1;
     }
-    
+    /**
+     * Dibuja la imaggen en pantalla
+     * @param g 
+     */
     public void draw(Graphics2D g){
         if (isSpriteAnimDestroyed())
             return;
         g.drawImage(sprites.get(currentSprite), (int)getPosX(), (int)getPosY(), width, height, null);
     }
-    
+    /**
+     * Ver cuando se debe hacer la animacion y cuando es destruido
+     * @param delta 
+     */
     public void update(double delta){
         if (isSpriteAnimDestroyed())
             return;
@@ -68,19 +74,25 @@ public class SpriteAnimation {
 	if (play && !loop)
             playAnimation();
     }
-    
+    /**
+     * No se anima el sprite
+     */
     public void stopAnimation() {
 	loop = false;
 	play = false;
     }
-
+    /**
+     * Que empiece desde 0 a animar
+     */
     public void resetSprite() {
 	loop = false;
 	play = false;
 	currentSprite = 0;
     }
     
-    
+    /**
+     * Para el ciclo de la animacion
+     */
     private void loopAnimation() {
 	if (timer.isTimerReady(animationSpeed) && currentSprite == limit){
             currentSprite = 0;
@@ -90,7 +102,9 @@ public class SpriteAnimation {
 	} 
     }
 
-    
+    /**
+     * Para dar inicio a la animacion del sprite
+     */
     private void playAnimation() {
 	if (timer.isTimerReady(animationSpeed) && currentSprite != limit && !getDestroyAfterAnim()) {
             play = false;
@@ -111,7 +125,14 @@ public class SpriteAnimation {
 
         return false;
     }
-    
+    /**
+     * Agrega una nueva animacion
+     * @param spriteMap para la imagen tipo sprite
+     * @param posX coordenada x
+     * @param posY coordenada y
+     * @param width ancho
+     * @param height alto
+     */
     public void addSprite(BufferedImage spriteMap, int posX, int posY, int width, int height) {
         sprites.add(spriteMap.getSubimage(posX, posY, width, height));
 	}

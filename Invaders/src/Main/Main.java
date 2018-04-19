@@ -1,7 +1,10 @@
 
 package Main;
 
+import EstructurasDatos.ListaDoble;
+import EstructurasDatos.ListaSimple;
 import State.StateMachine;
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -19,7 +22,10 @@ public class Main extends Canvas implements Runnable{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setLayout(new BorderLayout());
+                
         display.start();
+
         
     }
     private boolean running = false;

@@ -3,7 +3,9 @@ package Bullets;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
+/**
+ *Clase abstracta para darle al Jugador la posibilidad de tener diferentes tipos de municion
+ */
 public abstract class PlayerWeaponType {
     
     protected double xPos, yPos;
