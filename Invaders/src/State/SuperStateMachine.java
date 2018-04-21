@@ -21,7 +21,7 @@ public abstract class SuperStateMachine {
     public abstract void init(Canvas canvas);
 
     public StateMachine getStateMachine() {
-            return stateMachine;
+        return stateMachine;
     }
 }
 

@@ -1,6 +1,7 @@
 
 package EnemyTypes;
 
+import EstructurasDatos.ListaDoble;
 import EstructurasDatos.ListaSimple;
 import GameScreen.GameScreen;
 import GameScreen.Player;
@@ -8,18 +9,21 @@ import Main.Main;
 import Sprite.SpriteAnimation;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
+/**
+ * Tipo de enemigo basico
+ */
 public class EnemyTypeBasic implements EnemyType{
     
-    private double speed = 2.0d;
+    private double speed;
     
     private Rectangle rect;
     private SpriteAnimation enemySprite;
     
     private int vida;
     
-    public EnemyTypeBasic(double xPos, double yPos, int rows, int columns, int vida){
+    public EnemyTypeBasic(double xPos, double yPos, int rows, int columns, int vida, double speed){
         this.vida = vida;
+        this.speed = speed;
         enemySprite = new SpriteAnimation(xPos, yPos, rows, columns, 500, "/images/en1.png");
         enemySprite.setWidth(35);
         enemySprite.setHeight(40);
@@ -28,20 +32,29 @@ public class EnemyTypeBasic implements EnemyType{
         this.setRect(new Rectangle((int)enemySprite.getPosX(), (int)enemySprite.getPosY(), enemySprite.getWidth(), enemySprite.getHeight()));   
         enemySprite.setLoop(true);
     }
-
+    /**
+     * Dibuja la animacion del enemigo
+     * @param g 
+     */
     @Override
     public void draw(Graphics2D g) {
         enemySprite.draw(g);
     }
-
+    /**
+     * Mueve el enemigo en el eje "x"
+     * @param delta
+     * @param player 
+     */
     @Override
     public void update(double delta, Player player) {
         enemySprite.update(delta);
-        
-        enemySprite.setPosX(enemySprite.getPosX()-(delta*speed));
+        enemySprite.setPosX(enemySprite.getPosX() - (delta*speed));
         this.getRect().x = (int) enemySprite.getPosX();
-    }
-
+   }
+    /**
+     * Hace el movimiento de que cuando llegue a un extremo baje y siga del otro lado
+     * @param delta 
+     */
     @Override
     public void changeDirection(double delta) {
         speed *= -1.15d;
@@ -66,7 +79,14 @@ public class EnemyTypeBasic implements EnemyType{
         }
         return false;
     }
-
+    /**
+     * Logica de las colisiones con las balas del jugador y los enemigos
+     * cuando colisionan los dos se eliminan
+     * @param i contador
+     * @param player para tomar la lista de balas
+     * @param enemys lista de enemigos
+     * @return true o false si colisionan o no
+     */
     @Override
     public boolean collide(int i, Player player, ListaSimple<EnemyType> enemys) {
        if(enemySprite.isPlay()){
@@ -84,13 +104,16 @@ public class EnemyTypeBasic implements EnemyType{
                 enemySprite.resetLimit();
                 enemySprite.setAnimationSpeed(100);
                 enemySprite.setPlay(true, true);
-                GameScreen.score += 5;
+                GameScreen.plusScore(5);
                 return true;
             }
         }
         return false;
     }
-
+    /**
+     * Para cuando esta en el borde de los lados
+     * @return 
+     */
     @Override
     public boolean isOutOfBounds() {
         if(rect.x > 0 && rect.x < (Main.getWIDTH() - rect.width))
@@ -121,5 +144,39 @@ public class EnemyTypeBasic implements EnemyType{
     public void setVida(int vida) {
         this.vida = vida;
     }
-    
+
+    @Override
+    public boolean collide(int i, Player player, ListaDoble<EnemyType> enemys) {
+        if(enemySprite.isPlay()){
+           if(enemys.get(i).deathScene()){
+               
+               enemys.remove(i);
+           }
+           return false;
+       }
+        
+        for(int w = 0; w < player.playerWeapons.weapons.getSize(); w++){
+            if(enemys != null && player.playerWeapons.weapons.get(w).collisionRect(((EnemyTypeBasic) enemys.get(i)).getRect())){
+                this.vida--;
+            }if(vida == 0){
+                enemySprite.resetLimit();
+                enemySprite.setAnimationSpeed(100);
+                enemySprite.setPlay(true, true);
+                GameScreen.plusScore(5);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Da la posicion del jugador para el game over
+     * @return true o false si esta cerca de la posicion de la nave Jugador
+     */
+    @Override
+    public boolean posicPlayer() {
+        if(rect.y > Main.getHEIGHT() - 50)
+            return true;
+        return false;
+    }
+  
 }

@@ -1,8 +1,6 @@
 
 package Main;
-
 import EstructurasDatos.ListaDoble;
-import EstructurasDatos.ListaSimple;
 import State.StateMachine;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -25,8 +23,9 @@ public class Main extends Canvas implements Runnable{
         frame.setLayout(new BorderLayout());
                 
         display.start();
-
         
+
+
     }
     private boolean running = false;
     private Thread thread;
@@ -59,7 +58,7 @@ public class Main extends Canvas implements Runnable{
         this.setFocusable(true);
         
         state = new StateMachine(this);
-        state.setState((byte)0);
+        state.setState();
         
     }
 
@@ -75,6 +74,7 @@ public class Main extends Canvas implements Runnable{
         BufferStrategy bs = this.getBufferStrategy();
         
         while(running){
+
             long now = System.nanoTime();
             long updateLenght = now - lastLoopTime;
             lastLoopTime = now;
@@ -87,11 +87,22 @@ public class Main extends Canvas implements Runnable{
                 timer += 1000;
                 FPS = frames;
                 frames = 0;
-                //System.out.println(FPS);
+
             }
             draw(bs);
             update(delta);
             try{
+                /**
+                ListaDoble l = new ListaDoble();
+                l.add(1);
+                l.add(2);
+                l.add(3);
+                l.add(4);
+                l.add(5);
+                l.print();
+                l.intercambiar(0, 2);
+                l.print();
+                */
                 Thread.sleep(((lastLoopTime - System.nanoTime()) + optimalTime)/1000000);
             }catch(Exception e){
                 
@@ -128,9 +139,6 @@ public class Main extends Canvas implements Runnable{
     public static int getHEIGHT() {
         return HEIGHT;
     }
-
-    
-
 }
     
 
